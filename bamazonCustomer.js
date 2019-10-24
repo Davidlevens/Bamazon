@@ -53,12 +53,26 @@ function bamazon() {
             {
                 type: "number",
                 message: "Please enter the Product ID of the item that you would like to buy?".yellow,
-                name: "id"
+                name: "id",
+                validate: function(value){
+                    var valid = value.match(/^[0-9]+$/)
+                    if(valid){
+                        return true
+                    }
+                        return 'Please enter a valid Product ID'
+                }
             },
             {
                 type: "number",
                 message: "How many would you like to buy?".yellow,
-                name: "quantity"
+                name: "quantity",
+                validate: function(value){
+                    var valid = value.match(/^[0-9]+$/)
+                    if(valid){
+                        return true
+                    }
+                        return 'Please enter a numerical value'
+                }
             },
         ])
 
