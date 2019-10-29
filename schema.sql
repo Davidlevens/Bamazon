@@ -26,3 +26,5 @@ CREATE TABLE products (
   -- Sets id as this table's primary key which means all data contained within it will be unique --
   PRIMARY KEY (id)
 );
+
+SELECT * FROM products;

@@ -1,28 +1,41 @@
 // Required Dependencies
 const mysql = require("mysql");
+// const mysql = require('promise-mysql');
 const inquirer = require("inquirer");
 const colors = require('colors');
 const Table = require('cli-table');
+const conf = require('./config.js');
 
-// Connection script
-const connection = mysql.createConnection({
-    host: "localhost",
-    port: 3306,
 
-    // Username
-    user: "root",
 
-    // Credentials
-    password: "Nova15star",
-    database: "bamazon_db"
-});
+
+const connection = mysql.createConnection(conf)
 
 connection.connect(function (err) {
     if (err) throw err;
     console.log(colors.cyan("Welcome! ...you are now connected to the Bamazon Store database as id " + connection.threadId));
     //connection.end();
+    
+    
+    // inquirer.prompt([
+    //     {
+    //         type: "number",
+    //         message: "Please hit enter to view inventory".yellow,
+    //         name: "id",
+    //         validate: function(value){
+    //             var valid = value.toString().match(/^[0-9]+$/);
+    //             if(valid){
+    //                 return true
+    //             }
+    //                 return 'Please enter a valid Product ID'
+    //         }
+    //     }
+    // ]);
+    setTimeout(function() {
+        bamazon();
+       }, 5000);
 
-    bamazon();      //Call main function
+    // bamazon();     //Call main function
 
 });                 // End Connection Script
 
@@ -55,7 +68,7 @@ function bamazon() {
                 message: "Please enter the Product ID of the item that you would like to buy?".yellow,
                 name: "id",
                 validate: function(value){
-                    var valid = value.match(/^[0-9]+$/)
+                    var valid = value.toString().match(/^[0-9]+$/);
                     if(valid){
                         return true
                     }
@@ -67,7 +80,7 @@ function bamazon() {
                 message: "How many would you like to buy?".yellow,
                 name: "quantity",
                 validate: function(value){
-                    var valid = value.match(/^[0-9]+$/)
+                    var valid = value.toString().match(/^[0-9]+$/)
                     if(valid){
                         return true
                     }
@@ -88,7 +101,7 @@ function bamazon() {
                     // Varify item quantity desired is in inventory
                     if (selectedItem[0].stock_quantity - quantity >= 0) {
 
-                        console.log("INVENTORY AUDIT: Quantity in Stock: ".green + selectedItem[0].stock_quantity + " Order Quantity: ".green + quantity.yellow);
+                        console.log("INVENTORY AUDIT: Quantity in Stock: ".green + selectedItem[0].stock_quantity + " Order Quantity: ".green + cart.quantity.yellow);
 
                         console.log("Congratulations! Bamazon has suffiecient inventory of ".green + selectedItem[0].product_name.yellow + " to fill your order!".green);
 
@@ -103,7 +116,9 @@ function bamazon() {
                             function (err, inventory) {
                                 if (err) throw err;
 
-                                bamazon();  // Runs the prompt again, so the customer can continue shopping.
+                                setTimeout(function() {
+                                    bamazon();
+                                   }, 5000);  // Runs the prompt again, so the customer can continue shopping.
                             });  // Ends the code to remove item from inventory.
 
                     }
@@ -111,7 +126,9 @@ function bamazon() {
                     else {
                         console.log("INSUFFICIENT INVENTORY ALERT: \nBamazon only has ".red + selectedItem[0].stock_quantity + " " + selectedItem[0].product_name.cyan + " in stock at this moment. \nPlease make another selection or reduce your quantity.".red, "\nThank you for shopping at Bamazon!".magenta);
 
-                        bamazon();  // Runs the prompt again, so the customer can continue shopping.
+                        setTimeout(function() {
+                            bamazon();
+                           }, 5000);  // Runs the prompt again, so the customer can continue shopping.
                     }
                 });
             });
