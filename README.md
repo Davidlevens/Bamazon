@@ -10,7 +10,7 @@ Author:  David Levens
 
 <h3> App demo </h3>
 
-![alt text](./gif/bamazonGif2.gif "Bamazon CLI Node App")
+![alt text](./gif/bamazonGif2b.gif "Bamazon CLI Node App")
 
 <hr>
 
