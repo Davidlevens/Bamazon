@@ -11,31 +11,25 @@ const conf = require('./config.js');
 
 const connection = mysql.createConnection(conf)
 
-connection.connect(function (err) {
+connection.connect(async function (err) {
     if (err) throw err;
     console.log(colors.cyan("Welcome! ...you are now connected to the Bamazon Store database as id " + connection.threadId));
     //connection.end();
     
     
-    // inquirer.prompt([
-    //     {
-    //         type: "number",
-    //         message: "Please hit enter to view inventory".yellow,
-    //         name: "id",
-    //         validate: function(value){
-    //             var valid = value.toString().match(/^[0-9]+$/);
-    //             if(valid){
-    //                 return true
-    //             }
-    //                 return 'Please enter a valid Product ID'
-    //         }
-    //     }
-    // ]);
-    setTimeout(function() {
-        bamazon();
-       }, 5000);
+    const carryOn = await inquirer.prompt([
+        {
+            message: "Please hit 'Enter' to view inventory".yellow,
+            name: "go",
+        }
+    ]);
 
-    // bamazon();     //Call main function
+
+  
+    bamazon();      //Call main function
+
+
+       
 
 });                 // End Connection Script
 
