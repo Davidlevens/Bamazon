@@ -95,7 +95,7 @@ function bamazon() {
                     // Varify item quantity desired is in inventory
                     if (selectedItem[0].stock_quantity - quantity >= 0) {
 
-                        console.log("INVENTORY AUDIT: Quantity in Stock: ".green + selectedItem[0].stock_quantity + " Order Quantity: ".green + cart.quantity.yellow);
+                        console.log("INVENTORY AUDIT: Quantity in Stock: ".green + selectedItem[0].stock_quantity + " Order Quantity: ".green + quantity);
 
                         console.log("Congratulations! Bamazon has suffiecient inventory of ".green + selectedItem[0].product_name.yellow + " to fill your order!".green);
 
